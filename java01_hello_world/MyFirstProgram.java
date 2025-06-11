@@ -1,10 +1,5 @@
-
 public class MyFirstProgram {
-
-   public static void main(String[] args){
-     
-     System.out.println("Hola Ch54, bienvenido/a a Java");
-
-   }
-
+    public static void main (String []args){
+        System.out.println("hello word");
+    }
 }

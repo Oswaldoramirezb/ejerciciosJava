@@ -3,6 +3,7 @@ package org.generation;
 public class UnaryOperator {
 
 	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 		/*
 		 Los operadores unarios requieren un solo operando.
 		  
@@ -17,6 +18,7 @@ public class UnaryOperator {
 		int valueB = +20; // Por feault los valores son positivos
 		
 		int valorInicial = 10;
+		
 		System.out.println("Preincremento: " + ++valorInicial); // 11
 		System.out.println("Postincremento: " + valorInicial++); // 11
 		System.out.println("Valor final " + valorInicial); // 12

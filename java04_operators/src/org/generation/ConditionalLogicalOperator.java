@@ -3,6 +3,7 @@ package org.generation;
 public class ConditionalLogicalOperator {
 
 	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 		/*
 		 * Los operadores evaluan valores booleanos
 		 * Tienen el comportamiento de corto circuito: El segundo operador
@@ -23,7 +24,8 @@ public class ConditionalLogicalOperator {
 		   independientemente del valor del segundo operando. 
 		   Por lo tanto, Java no evalúa el segundo operando.
 		   
-		   Ventajas del corto circuito:
+		   
+			Ventajas del corto circuito:
 		   - Evita la ejecución innecesaria de código, lo que 
 		   puede ahorrar tiempo de procesamiento, especialmente 
 		   si el segundo operando implica una operación costosa 
@@ -35,7 +37,7 @@ public class ConditionalLogicalOperator {
 		   es null antes de acceder a sus miembros).
 		 */
 		
-		  int value1 = 1;
+		int value1 = 1;
 	      int value2 = 2;
 	        
 	      if( (value1 == 1) && (value2 == 2) )
@@ -52,16 +54,14 @@ public class ConditionalLogicalOperator {
 	      boolean resultado4 = (x < y) || (z < x); // false
 	      
 	      System.out.println("\n--- Ejemplo para prevenir NullPointerException ---");
-	      String name = "rhtrt";
+	      String name = "cris";
 	      
 	      // Saber si el texto es un empty string
 	      if( name != null && name.isEmpty() )
 	    	  System.out.println("El nombre está vacío");
 	      else
-	    	  System.out.println("El nombre es null o no está vacío");
-	    	  
-	      
-	      
+	    	  System.out.println("el nombre es null o no esta vacio");
+
 	}
 
 }
