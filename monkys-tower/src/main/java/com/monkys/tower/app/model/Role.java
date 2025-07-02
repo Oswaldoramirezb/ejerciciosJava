@@ -1,10 +1,17 @@
 package com.monkys.tower.app.model;
 
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -40,14 +47,12 @@ public class Role {
 	@Column(name="description", length=100, nullable=true)
 	private String description; 
 	
-	
     // Relación ManyToMany inversa con User
     // 'mappedBy' indica que la relación es propiedad de la entidad 'User'
     // a través del campo 'roles' en la clase User.
 //    @ManyToMany(mappedBy = "roles")
 //    @JsonIgnoreProperties({"firstName","lastName", "password", "birthDate", "active","roles", "createdAt"})
 //    private Set<User> users = new HashSet<>();
-	
 	
 	public Role() {
 		
@@ -60,27 +65,27 @@ public class Role {
 		this.description = description;
 	}
 
-	public Long getId() {
+	public final Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public final void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getName() {
+	public final String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public final void setName(String name) {
 		this.name = name;
 	}
 
-	public String getDescription() {
+	public final String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public final void setDescription(String description) {
 		this.description = description;
 	}
 
@@ -97,6 +102,25 @@ public class Role {
 		return builder.toString();
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(description, id, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Role other = (Role) obj;
+		return Objects.equals(description, other.description) && Objects.equals(id, other.id)
+				&& Objects.equals(name, other.name);
+	}
+
+	
 		
 }
 

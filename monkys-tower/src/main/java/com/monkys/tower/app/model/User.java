@@ -1,19 +1,16 @@
 package com.monkys.tower.app.model;
 
 import java.time.*;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.*;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="users")
 public class User {
-	
-	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,16 +32,17 @@ public class User {
 	@Column(name = "is_active", nullable = false)
 	private boolean active = true;
 	
-	
-    // Hibernate asignará la fecha y hora de creación automáticamente
-    // updatable/insertable : el campo no debe ser modificado manualmente
-    //                    desde el código, dejando que Hibernate la gestione.
-    @CreationTimestamp
+	// Hibernate asignará la fecha y hora de creación automáticamente
+	// updatable/insertable : el campo no debe ser modificado manualmente
+	//                    desde el código, dejando que Hibernate la gestione.
+	@CreationTimestamp
 	@Column(name = "created_at", nullable = false, updatable = false)
 	private LocalDateTime createdAt;
+	// Hibernate asignará la fecha y hora de actualización automáticamente
+	@UpdateTimestamp
 	@Column(name = "updated_at", nullable = false)
 	private LocalDateTime updatedAt;
-	
+
 	/**
      * Define una relación muchos a muchos entre la entidad 
      * User y la entidad Role.
@@ -64,7 +62,7 @@ public class User {
      *   FetchType.LAZY (Perezosa)
      *    Se carga solo cuando se accede a la relación por primera vez.
      *    Carga los roles SÓLO si se llama a user.getRoles()
-     * *    
+     *    
      * LazyInitializationException: Ocurre cuando intentas acceder a una relación 
 	 * de una entidad que ha sido configurada con carga perezosa (lazy loading), 
 	 * pero la sesión de Hibernate o el contexto de persistencia ya está cerrado.
@@ -77,120 +75,132 @@ public class User {
      *    
      * @ManyToMany: Define una relación de muchos a muchos. Un usuario puede tener muchos roles y viceversa.
      * fetch = FetchType.LAZY: Los roles no se cargarán hasta que se accedan explícitamente.
-     *   * @JoinTable: Define la tabla intermedia que une 'users' y 'roles'.
+     * @JoinTable: Define la tabla intermedia que une 'users' y 'roles'.
      * - name = "users_has_roles": El nombre de la tabla de unión.
      * - joinColumns: La clave foránea que referencia a la entidad actual (User).
      * - inverseJoinColumns: La clave foránea que referencia a la otra entidad (Role).
      */
-	
-	@ManyToMany (fetch = FetchType.EAGER)// @OneToOne, @OneToMany, @ManyToOne private User user
-	
-	//JsonIgnoreProperties({field1, field2});
+	@ManyToMany(fetch = FetchType.EAGER) // @OneToOne, @OneToMany, @ManyToOne  private User user
+	// @JsonIgnoreProperties({field1, fiel2});
 	@JoinTable( 
 			name="user_has_role", 
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id")			
 			)
-	
 	private Set<Role> roles = new HashSet<>();
 	
-	public User() {
-		
+	public User() {}
+
+	public User(Long id, String firstName, String lastName, String email, String password, String phoneNumber,
+			LocalDate birthDate, String avatarUrl, boolean active, LocalDateTime createdAt, LocalDateTime updatedAt,
+			Set<Role> roles) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.phoneNumber = phoneNumber;
+		this.birthDate = birthDate;
+		this.avatarUrl = avatarUrl;
+		this.active = active;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.roles = roles;
 	}
 
-	public Long getId() {
+	public final Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public final void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getFirstName() {
+	public final String getFirstName() {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public final void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-	public String getLastName() {
+	public final String getLastName() {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public final void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
+	public final String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public final void setEmail(String email) {
 		this.email = email;
 	}
 
-	public String getPassword() {
+	public final String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public final void setPassword(String password) {
 		this.password = password;
 	}
 
-	public String getPhoneNumber() {
+	public final String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
+	public final void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public LocalDate getBirthDate() {
+	public final LocalDate getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(LocalDate birthDate) {
+	public final void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 
-	public String getAvatarUrl() {
+	public final String getAvatarUrl() {
 		return avatarUrl;
 	}
 
-	public void setAvatarUrl(String avatarUrl) {
+	public final void setAvatarUrl(String avatarUrl) {
 		this.avatarUrl = avatarUrl;
 	}
 
-	public boolean isActive() {
+	public final boolean isActive() {
 		return active;
 	}
 
-	public void setActive(boolean active) {
+	public final void setActive(boolean active) {
 		this.active = active;
 	}
 
-	public LocalDateTime getCreatedAt() {
+	public final LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
+	public final void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public LocalDateTime getUpdatedAt() {
+	public final LocalDateTime getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(LocalDateTime updatedAt) {
+	public final void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
-	public Set<Role> getRoles() {
+	public final Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
+	public final void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 
@@ -219,43 +229,19 @@ public class User {
 		builder.append(createdAt);
 		builder.append(", updatedAt=");
 		builder.append(updatedAt);
-		builder.append(", getId()=");
-		builder.append(getId());
-		builder.append(", getFirstName()=");
-		builder.append(getFirstName());
-		builder.append(", getLastName()=");
-		builder.append(getLastName());
-		builder.append(", getEmail()=");
-		builder.append(getEmail());
-		builder.append(", getPassword()=");
-		builder.append(getPassword());
-		builder.append(", getPhoneNumber()=");
-		builder.append(getPhoneNumber());
-		builder.append(", getBirthDate()=");
-		builder.append(getBirthDate());
-		builder.append(", getAvatarUrl()=");
-		builder.append(getAvatarUrl());
-		builder.append(", isActive()=");
-		builder.append(isActive());
-		builder.append(", getCreatedAt()=");
-		builder.append(getCreatedAt());
-		builder.append(", getUpdatedAt()=");
-		builder.append(getUpdatedAt());
-		builder.append(", getRoles()=");
-		builder.append(getRoles());
-		builder.append(", getClass()=");
-		builder.append(getClass());
-		builder.append(", hashCode()=");
-		builder.append(hashCode());
-		builder.append(", toString()=");
-		builder.append(super.toString());
 		builder.append("]");
 		return builder.toString();
 	}
-
-
-
-
 	
+	// Métodos de ayuda para sincronizar la relación bidireccional
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
 
+    public void removeRole(Role role) {
+        this.roles.remove(role);
+    }
+	
+	
+	
 }
